@@ -4,6 +4,8 @@ source 'https://rubygems.org'
 
 gem 'dry-struct'
 
+gem 'sorted_set'
+
 group :development, :lint do
   gem 'rubocop'
   gem 'rubocop-performance'

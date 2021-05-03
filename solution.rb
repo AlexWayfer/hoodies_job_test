@@ -3,6 +3,8 @@
 require 'zlib'
 require 'stringio'
 
+require 'sorted_set'
+
 require 'dry-struct'
 
 module Solution
@@ -33,8 +35,20 @@ end
 if $PROGRAM_NAME == __FILE__
   gzip = Zlib::GzipReader.new StringIO.new File.read 'data_large.txt.gz'
 
+  unique_browsers = SortedSet.new
+
   ## `each` instead of `read` for partial reading
   gzip.each.with_index do |line, index|
     # ...
   end
+
+  report = {
+    totalUsers: users.size,
+    uniqueBrowsersCount: unique_browsers.size,
+    totalSessions: sessions.size,
+    allBrowsers: unique_browsers.join(','),
+    usersStats: []
+  }
+
+  File.write 'result.json', "#{report.to_json}\n"
 end
