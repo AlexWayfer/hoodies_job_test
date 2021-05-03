@@ -10,3 +10,7 @@ AllCops:
   NewCops: enable
   Exclude:
     - Task.rb
+
+Metrics/BlockLength:
+  Exclude:
+    - spec/**/*
