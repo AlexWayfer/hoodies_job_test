@@ -9,6 +9,9 @@ inherit_mode:
 AllCops:
   NewCops: enable
   Exclude:
+    <% `git status --ignored --porcelain`.lines.grep(/^!! /).each do |path| %>
+    - <%= path.sub(/^!! /, '') %>
+    <% end %>
     - Task.rb
 
 Metrics/BlockLength:
