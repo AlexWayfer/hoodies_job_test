@@ -3,6 +3,7 @@ GEM
   specs:
     ast (2.4.2)
     concurrent-ruby (1.1.8)
+    diff-lcs (1.4.4)
     dry-configurable (0.12.1)
       concurrent-ruby (~> 1.0)
       dry-core (~> 0.5, >= 0.5.0)
@@ -32,6 +33,19 @@ GEM
     rainbow (3.0.0)
     regexp_parser (2.1.1)
     rexml (3.2.5)
+    rspec (3.10.0)
+      rspec-core (~> 3.10.0)
+      rspec-expectations (~> 3.10.0)
+      rspec-mocks (~> 3.10.0)
+    rspec-core (3.10.1)
+      rspec-support (~> 3.10.0)
+    rspec-expectations (3.10.1)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.10.0)
+    rspec-mocks (3.10.2)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.10.0)
+    rspec-support (3.10.2)
     rubocop (1.13.0)
       parallel (~> 1.10)
       parser (>= 3.0.0.0)
@@ -46,6 +60,9 @@ GEM
     rubocop-performance (1.11.1)
       rubocop (>= 1.7.0, < 2.0)
       rubocop-ast (>= 0.4.0)
+    rubocop-rspec (2.3.0)
+      rubocop (~> 1.0)
+      rubocop-ast (>= 1.1.0)
     ruby-progressbar (1.11.0)
     unicode-display_width (2.0.0)
 
@@ -54,8 +71,10 @@ PLATFORMS
 
 DEPENDENCIES
   dry-struct
+  rspec
   rubocop
   rubocop-performance
+  rubocop-rspec
 
 BUNDLED WITH
    2.2.16

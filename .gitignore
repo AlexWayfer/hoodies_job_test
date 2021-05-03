@@ -1,2 +1,4 @@
 /data*.txt
 /result.json
+
+/spec/examples.txt
