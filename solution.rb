@@ -16,9 +16,10 @@ module Solution
   module Types
     include Dry.Types()
 
-    Coercible::Date = Types.Constructor(::Date) do |value|
-      value.is_a?(::Date) ? value : ::Date.parse(value)
-    end
+    DateString = Types::String.constrained(
+      ## February 31 will pass :(
+      format: /^[1-9]\d\d\d-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/
+    )
 
     UpcasedString = Types::String.constructor(&:upcase)
 
@@ -46,7 +47,7 @@ module Solution
       attribute :session_id, Types::Coercible::Integer
       attribute :browser, Types::UpcasedString
       attribute :time, Types::Coercible::Integer.constrained(gteq: 0)
-      attribute :date, Types::Coercible::Date
+      attribute :date, Types::DateString
     end
   end
 
@@ -173,7 +174,7 @@ module Solution
 
       ## `each` instead of `read` for partial unarchivating
       io.each.with_index do |line, index|
-        ParseLine.new.call(line: line).bind do |data_struct|
+        ParseLine.new.call(line: line.chomp).bind do |data_struct|
           FillReport.new.call(report: report, data_struct: data_struct)
         end
         puts "Line ##{index} parsed..." if (index % 100_000).zero?

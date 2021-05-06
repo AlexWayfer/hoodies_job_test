@@ -37,12 +37,9 @@ RSpec.describe Solution::Structs::Session do
                   let(:date) { Date.today }
 
                   it do
-                    is_expected.to have_attributes(
-                      user_id: user_id,
-                      session_id: session_id,
-                      browser: expected_browser,
-                      time: time,
-                      date: date
+                    expect { session }.to raise_error(
+                      Dry::Struct::Error,
+                      /\(Date\) has invalid type for :date violates constraints/
                     )
                   end
                 end
@@ -56,7 +53,7 @@ RSpec.describe Solution::Structs::Session do
                       session_id: session_id,
                       browser: expected_browser,
                       time: time,
-                      date: Date.new(2021, 5, 3)
+                      date: date
                     )
                   end
                 end
@@ -76,8 +73,8 @@ RSpec.describe Solution::Structs::Session do
               context 'when `time` is equal to 0' do
                 let(:time) { 0 }
 
-                context 'with `date` as `Date`' do
-                  let(:date) { Date.today }
+                context 'with `date` as correct `String`' do
+                  let(:date) { '2021-05-03' }
 
                   it do
                     is_expected.to have_attributes(
@@ -94,8 +91,8 @@ RSpec.describe Solution::Structs::Session do
               context 'when `time` is less than 0' do
                 let(:time) { -1 }
 
-                context 'with `date` as `Date`' do
-                  let(:date) { Date.today }
+                context 'with `date` as correct `String`' do
+                  let(:date) { '2021-05-03' }
 
                   it do
                     expect { session }.to raise_error(
@@ -110,8 +107,8 @@ RSpec.describe Solution::Structs::Session do
             context 'with `time` as correct String' do
               let(:time) { '10' }
 
-              context 'with `date` as `Date`' do
-                let(:date) { Date.today }
+              context 'with `date` as correct `String`' do
+                let(:date) { '2021-05-03' }
 
                 it do
                   is_expected.to have_attributes(
@@ -128,8 +125,8 @@ RSpec.describe Solution::Structs::Session do
             context 'with `time` as incorrect String' do
               let(:time) { 'abc' }
 
-              context 'with `date` as `Date`' do
-                let(:date) { Date.today }
+              context 'with `date` as correct `String`' do
+                let(:date) { '2021-05-03' }
 
                 it do
                   expect { session }.to raise_error(
@@ -143,8 +140,8 @@ RSpec.describe Solution::Structs::Session do
             context 'with `time` as empty String' do
               let(:time) { '' }
 
-              context 'with `date` as `Date`' do
-                let(:date) { Date.today }
+              context 'with `date` as correct `String`' do
+                let(:date) { '2021-05-03' }
 
                 it do
                   expect { session }.to raise_error(
@@ -158,8 +155,8 @@ RSpec.describe Solution::Structs::Session do
             context 'with `time` as `nil`' do
               let(:time) { nil }
 
-              context 'with `date` as `Date`' do
-                let(:date) { Date.today }
+              context 'with `date` as correct `String`' do
+                let(:date) { '2021-05-03' }
 
                 it do
                   expect { session }.to raise_error(
@@ -183,8 +180,8 @@ RSpec.describe Solution::Structs::Session do
               context 'when `time` is greater than 0' do
                 let(:time) { 10 }
 
-                context 'with `date` as `Date`' do
-                  let(:date) { Date.today }
+                context 'with `date` as correct `String`' do
+                  let(:date) { '2021-05-03' }
 
                   it do
                     is_expected.to have_attributes(
@@ -211,8 +208,8 @@ RSpec.describe Solution::Structs::Session do
               context 'when `time` is greater than 0' do
                 let(:time) { 10 }
 
-                context 'with `date` as `Date`' do
-                  let(:date) { Date.today }
+                context 'with `date` as correct `String`' do
+                  let(:date) { '2021-05-03' }
 
                   it do
                     expect { session }.to raise_error(
@@ -236,8 +233,8 @@ RSpec.describe Solution::Structs::Session do
               context 'when `time` is greater than 0' do
                 let(:time) { 10 }
 
-                context 'with `date` as `Date`' do
-                  let(:date) { Date.today }
+                context 'with `date` as correct `String`' do
+                  let(:date) { '2021-05-03' }
 
                   it do
                     expect { session }.to raise_error(
@@ -261,8 +258,8 @@ RSpec.describe Solution::Structs::Session do
               context 'when `time` is greater than 0' do
                 let(:time) { 10 }
 
-                context 'with `date` as `Date`' do
-                  let(:date) { Date.today }
+                context 'with `date` as correct `String`' do
+                  let(:date) { '2021-05-03' }
 
                   it do
                     expect { session }.to raise_error(
@@ -291,8 +288,8 @@ RSpec.describe Solution::Structs::Session do
               context 'when `time` is greater than 0' do
                 let(:time) { 10 }
 
-                context 'with `date` as `Date`' do
-                  let(:date) { Date.today }
+                context 'with `date` as correct `String`' do
+                  let(:date) { '2021-05-03' }
 
                   it do
                     is_expected.to have_attributes(
@@ -323,8 +320,8 @@ RSpec.describe Solution::Structs::Session do
               context 'when `time` is greater than 0' do
                 let(:time) { 10 }
 
-                context 'with `date` as `Date`' do
-                  let(:date) { Date.today }
+                context 'with `date` as correct `String`' do
+                  let(:date) { '2021-05-03' }
 
                   it do
                     expect { session }.to raise_error(
@@ -352,8 +349,8 @@ RSpec.describe Solution::Structs::Session do
               context 'when `time` is greater than 0' do
                 let(:time) { 10 }
 
-                context 'with `date` as `Date`' do
-                  let(:date) { Date.today }
+                context 'with `date` as correct `String`' do
+                  let(:date) { '2021-05-03' }
 
                   it do
                     expect { session }.to raise_error(
@@ -381,8 +378,8 @@ RSpec.describe Solution::Structs::Session do
               context 'when `time` is greater than 0' do
                 let(:time) { 10 }
 
-                context 'with `date` as `Date`' do
-                  let(:date) { Date.today }
+                context 'with `date` as correct `String`' do
+                  let(:date) { '2021-05-03' }
 
                   it do
                     expect { session }.to raise_error(
