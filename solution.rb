@@ -2,7 +2,6 @@
 
 require 'zlib'
 require 'stringio'
-require 'csv'
 require 'json'
 
 require 'sorted_set'
@@ -117,7 +116,8 @@ module Solution
     include Dry::Monads[:result]
 
     def call(line:)
-      data_row_values = CSV.parse_line(line)
+      ## `CSV.parse_line` takes too much time
+      data_row_values = line.split ','
 
       data_struct_class_name =
         INFLECTOR.camelize Solution::Types::DataRowType[data_row_values.first]
