@@ -2,7 +2,6 @@
 
 source 'https://rubygems.org'
 
-gem 'dry-inflector'
 gem 'dry-monads'
 gem 'dry-struct'
 

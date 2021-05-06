@@ -80,7 +80,6 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
-  dry-inflector
   dry-monads
   dry-struct
   rspec

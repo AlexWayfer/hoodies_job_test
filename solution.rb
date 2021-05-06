@@ -10,8 +10,6 @@ require 'dry-struct'
 require 'dry/monads'
 
 module Solution
-  INFLECTOR = Dry::Inflector.new
-
   ## Types of the project
   module Types
     include Dry.Types()
@@ -120,14 +118,29 @@ module Solution
       ## `CSV.parse_line` takes too much time
       data_row_values = line.split ','
 
-      data_struct_class_name =
-        INFLECTOR.camelize Solution::Types::DataRowType[data_row_values.first]
+      case data_row_values.first
+      when 'user'
+        Success initialize_user_struct data_row_values
+      when 'session'
+        Success initialize_session_struct data_row_values
+      else
+        Failure :unknown_line_type
+      end
+    end
 
-      data_struct_class = Solution::Structs.const_get(data_struct_class_name, false)
+    private
 
-      data_struct_hash = data_struct_class.attribute_names.zip(data_row_values[1..]).to_h
+    def initialize_user_struct(values)
+      Structs::User.new(
+        id: values[1], first_name: values[2], last_name: values[3], age: values[4]
+      )
+    end
 
-      Success data_struct_class.new data_struct_hash
+    def initialize_session_struct(values)
+      Structs::Session.new(
+        user_id: values[1], session_id: values[2],
+        browser: values[3], time: values[4], date: values[5]
+      )
     end
   end
 
