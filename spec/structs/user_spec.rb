@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe Solution::User do
+RSpec.describe Solution::Structs::User do
   subject(:user_class) { described_class }
 
   describe '#initialize' do
