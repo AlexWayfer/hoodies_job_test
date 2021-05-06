@@ -10,6 +10,8 @@ require 'dry-struct'
 require 'dry/monads'
 
 module Solution
+  LOGGER = Logger.new $stdout, level: ENV.fetch('LOGGER_LEVEL', :info)
+
   ## Types of the project
   module Types
     include Dry.Types()
@@ -190,7 +192,7 @@ module Solution
         ParseLine.new.call(line: line.chomp).bind do |data_struct|
           FillReport.new.call(report: report, data_struct: data_struct)
         end
-        puts "Line ##{index} parsed..." if (index % 100_000).zero?
+        LOGGER.debug "Line ##{index} parsed..." if (index % 100_000).zero?
       end
 
       FinalizeReport.new.call(report: report)
@@ -219,7 +221,8 @@ end
 
 if $PROGRAM_NAME == __FILE__
   Solution::ReadArchive.new.call(file_name: 'data_large.txt.gz').bind do |io|
-    puts 'Archive loaded...'
+    Solution::LOGGER.debug 'Archive loaded...'
+
     Solution::GenerateReport.new.call(io: io).bind do |report|
       Solution::SaveReport.new.call report: report, result_file_name: 'result.json'
     end
